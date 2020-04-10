@@ -14,18 +14,16 @@ import com.assignment.wiproassignment.ui.news.adapter.NewsListAdapter
 import com.assignment.wiproassignment.utill.Utility.isNetworkAvailable
 import com.assignment.wiproassignment.utill.showToast
 import com.assignment.wiproassignment.widget.loader.UtilLoader
+import kotlinx.android.synthetic.main.toolbar.view.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
 
     lateinit var binding:ActivityMainBinding
     lateinit var viewModel: NewsViewModel
     private lateinit var adapter: NewsListAdapter
     private lateinit var mUtilLoader: UtilLoader
-
     private var previousSelected = -1
     private var onClick = false
-    private var onFavClick = false
-    private var currentPosition = 0
     var swipeCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +55,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun init() {
         mUtilLoader = UtilLoader(this)
+        binding.idToolbar.tvTitle.text = getString(R.string.app_name)
         val supportList = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvNews.layoutManager = supportList
     }
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * when no doctors available
+     * when no News available
      */
     private fun noNewsFound() {
         binding.tvRecordFound.visibility = View.VISIBLE
@@ -141,26 +140,28 @@ class MainActivity : AppCompatActivity() {
         if (show) mUtilLoader.startLoader(this) else mUtilLoader.stopLoader()
     }
 
-    /**
-     * update doc ui
-     */
-    private fun updateUI() {
-        Handler().postDelayed({
-            if (adapter.getCount() == 0) {
-                noNewsFound()
-            }
-        }, 300)
-    }
 
     override fun onResume() {
         super.onResume()
         try {
-           /* AppInstance.newsDataObj = getNe(this)
-            clearDocData()*/
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    
+    override fun onItemClick(data: NewsListResponse.Row, position: Int) {
+        if (!onClick) {
+            onClick = true
+            if (position != previousSelected) {
+                previousSelected = position
+            }
+
+            binding.idToolbar.tvTitle.text=data.title
+
+        }
+    }
+
+
+
 }

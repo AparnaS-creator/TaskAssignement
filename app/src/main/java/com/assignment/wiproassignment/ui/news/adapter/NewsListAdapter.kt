@@ -12,6 +12,9 @@ import com.assignment.wiproassignment.R
 import com.assignment.wiproassignment.model.newlist.NewsListResponse
 import com.assignment.wiproassignment.utill.showImage
 
+
+
+
 /**
  * Created by Aparna S
  */
@@ -33,6 +36,8 @@ class NewsListAdapter(
                 false
             )
         )
+
+
     }
 
     override fun getItemCount(): Int {
@@ -67,11 +72,22 @@ class NewsListAdapter(
         val tvTitle: TextView = view.findViewById(R.id.tvHeading)
         val tvDesc: TextView = view.findViewById(R.id.tvDesc)
 
+        var mIsInTheMiddle=false
+
+        fun getIsInTheMiddle(): Boolean {
+            return mIsInTheMiddle
+        }
     }
 
     interface ItemClickListener {
         fun onItemClick(data: NewsListResponse.Row, position: Int)
 
+    }
+
+
+    fun updateUI(position: Int, colorCode: String) {
+        selectedPosition = position
+        notifyItemChanged(position)
     }
 
 
