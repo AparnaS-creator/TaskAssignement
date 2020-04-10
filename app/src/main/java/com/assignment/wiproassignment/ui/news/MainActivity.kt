@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
             swipeCount += 1;
             if (swipeCount > 0) {
                 callAPI()
-                //blogs.add(Blog("Blog Title $swipeCount", "Description : Blog description goes here"))
-                Toast.makeText(this, "Swipe called", Toast.LENGTH_SHORT).show()
             }
             adapter.notifyDataSetChanged()
 
