@@ -1,98 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView  android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_4"
-        android:layout_marginTop="@dimen/space_8"
-        android:layout_marginEnd="@dimen/space_4"
-        android:orientation="vertical"
-        android:padding="@dimen/space_8">
+        android:layout_margin="@dimen/space_4"
+        android:background="@drawable/border"
+        android:padding="@dimen/space_10">
 
-        <RelativeLayout
-            android:id="@+id/rlImageView"
-            android:layout_width="@dimen/space_60"
-            android:layout_height="@dimen/space_60"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/space_8"
-            android:orientation="horizontal">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivThumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:scaleType="centerCrop"
-                app:riv_border_color="@color/colorPrimary"
-                app:riv_border_width="2dp"
-                app:riv_oval="true" />
-
-
-        </RelativeLayout>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clChild"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/space_8"
-            android:layout_marginEnd="@dimen/space_8"
-            android:layout_toEndOf="@+id/rlImageView"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="10dp">
 
-            <TextView
-                android:id="@+id/tvHeader"
-                android:layout_width="match_parent"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHeading"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/enzo_bold"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:text="@string/app_name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_16" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvInfo1"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:autoSizeTextType="uniform"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/times_new_roman"
+                    android:gravity="left"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_size_25"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteY="4dp"
+                    tools:text="Mordochs needed counselling after hacking scandle, says magzine" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
-                android:ellipsize="end"
-                android:fontFamily="@font/enzo_medium"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/text_size_16" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clHeading">
 
-            <TextView
-                android:id="@+id/tvInfo2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
-                android:ellipsize="end"
-                android:fontFamily="@font/enzo_medium"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/text_size_14" />
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/space_4"
+                    android:lines="5"
+                    android:text="NEW YORK: The British phone-hacking scandle brought simmering tension. "
+                    android:textSize="@dimen/text_size_20"
+                    app:layout_constraintEnd_toStartOf="@+id/ivThumbnail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivThumbnail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+                    app:layout_constraintStart_toEndOf="@+id/tvDesc"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars[6]" />
+
+                <ImageView
+                    android:id="@+id/ivArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_4"
+                    android:src="@drawable/arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivThumbnail"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <!-- <TextView
+                 android:id="@+id/tvBadgeType"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:textAllCaps="true"
+                 android:textColor="#29296D"
+                 android:textSize="@dimen/text_size_15"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/tvBadgeName"
+                 tools:text="solo" />-->
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/view_drop_off"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1"
-        android:layout_marginTop="@dimen/space_8"
-        android:background="@color/colorGray" />
-
-</androidx.cardview.widget.CardView>
+</layout>

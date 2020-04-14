@@ -8,8 +8,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.assignment.listassignment"
-        minSdkVersion 21
+        applicationId "com.assignment.wiproassignment"
+        minSdkVersion 25
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -93,16 +93,9 @@ dependencies {
 
     implementation "androidx.cardview:cardview:1.0.0"
 
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-
     // RX rxjava2_version: 2.0.1
     implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
-    implementation 'com.google.android.material:material:1.1.0'
-
-    
-
 }
