@@ -22,18 +22,6 @@ import org.json.JSONObject
  * it contain all the common methods that are uses as per requirement
  */
 
-
-/**
- * check network is available or not
- */
-fun isNetworkAvailable(context: Context): Boolean {
-    val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    val activeNetworkInfo = connectivityManager.activeNetworkInfo
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected
-}
-
 /**
  * show toast
  */
@@ -63,66 +51,6 @@ fun showToast(mContext: Context, message: String, duration: Int) {
     }
 }
 
-
-fun parseError(result: String?): String {
-    var errorDescription = ""
-    try {
-        if (result != null) {
-            val jsonObjectResult = JSONObject(result)
-            errorDescription = jsonObjectResult.getString("messageText")
-        }
-    } catch (ex: Exception) {
-        ex.printStackTrace()
-        errorDescription = result.toString()
-    }
-
-    return errorDescription
-
-}
-
-fun isImageFile(imageType: String): Boolean {
-    return imageType.equals("image/jpeg", ignoreCase = true) || imageType.equals(
-        "image/jpg",
-        ignoreCase = true
-    ) || imageType.equals("image/png", ignoreCase = true) || imageType.equals(
-        "image/gif",
-        ignoreCase = true
-    )
-}
-
-
-private fun openBrowser(link: String, context: Context) {
-    try {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-        context.startActivity(intent)
-    } catch (ex: Exception) {
-        ex.printStackTrace()
-    }
-}
-
-
-fun hideSoftKeyboard(context: Context, et: EditText) {
-    try {
-        val imm = context.getSystemService(
-            Context.INPUT_METHOD_SERVICE
-        ) as InputMethodManager
-        imm.hideSoftInputFromWindow(et.windowToken, 0)
-    } catch (e: Exception) {
-    }
-}
-
-fun hideVirtualKeyboard(mContext: Context) {
-    try {
-        val binder = (mContext as Activity).window.currentFocus!!
-            .windowToken
-        if (binder != null) {
-            val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(binder, 0)
-        }
-    } catch (e: Exception) {
-        //no focus found
-    }
-}
 
 
 /**

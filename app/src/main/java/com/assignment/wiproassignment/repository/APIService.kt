@@ -4,6 +4,7 @@ package com.assignment.wiproassignment.repository
 
 import com.assignment.wiproassignment.model.newlist.NewsListResponse
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
 
@@ -18,6 +19,7 @@ interface APIService {
     of apis (Communicate to  servers with predefined parameters ).
      **/
 
+
     @GET(WebConstants.NEWS_LIST)
-    fun getNewsList():  Observable<NewsListResponse>
+    fun getNewsList(): Observable<NewsListResponse>
 }

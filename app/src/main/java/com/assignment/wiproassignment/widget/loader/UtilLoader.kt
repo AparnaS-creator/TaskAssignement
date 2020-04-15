@@ -2,9 +2,7 @@ package com.assignment.wiproassignment.widget.loader
 
 import android.content.Context
 
-/**
- * Created by Swapnil Nandapure.
- */
+
 class UtilLoader {
     lateinit var progressDialogObj: TransparentProgressDialog
     lateinit var context: Context

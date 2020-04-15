@@ -1,9 +1,6 @@
 package com.assignment.wiproassignment.ui.news
 
-import android.app.Activity
-import android.content.Intent
-import android.view.View
-import androidx.databinding.ObservableField
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.assignment.wiproassignment.R
@@ -12,6 +9,14 @@ import com.assignment.wiproassignment.repository.ApiUtilities
 import com.assignment.wiproassignment.repository.ErrorModel
 import com.assignment.wiproassignment.repository.NetworkManager
 import com.assignment.wiproassignment.repository.ServiceListener
+import androidx.lifecycle.LiveData
+import com.assignment.wiproassignment.model.newlist.NewsListResponse.Row
+
+
+
+
+
+
 
 /**
  * Created by Aparna S.
@@ -21,16 +26,25 @@ class NewsViewModel : ViewModel() {
     var isLoading = MutableLiveData<Boolean>()
     var apiError = MutableLiveData<String>()
     var apiResponse = MutableLiveData<Any>()
+   var users: MutableLiveData<ArrayList<Row>>? = null
 
     init {
         isLoading.value = false
     }
 
+    fun getUsers(): LiveData<ArrayList<Row>> {
+        if (users == null) {
+            users = MutableLiveData<ArrayList<Row>>()
+            callNewsListApi()
+        }
+        return users as MutableLiveData<ArrayList<Row>>
+    }
+
+
     /**
-     * Get Favorite Doctor List Webservice Call
+     * Get List Webservice Call
      */
     fun callNewsListApi(
-        activity: Activity
     ) {
         try {
             if (isLoading.value == false) {
@@ -43,9 +57,7 @@ class NewsViewModel : ViewModel() {
                             response: NewsListResponse,
                             requestcode: Int
                         ) {
-                            System.out.println("Favorite Doctor List Response ==> " + response)
                             apiResponse.value = response
-                            //apiError.value = response.getMessageText()
                             isLoading.value = false
                         }
 
@@ -64,18 +76,6 @@ class NewsViewModel : ViewModel() {
 
 
 
-    /**
-     *  navigation to News Details
-     */
-    fun goToDoctorsDetails(activity: Activity) {
-       /* val intent = Intent(activity, NewsDetailsActivity::class.java)
-        intent.putExtra(SOURCE, SOURCE_FAVORITE_DOCTOR)
-        activity.startActivity(intent)
-        activity.overridePendingTransition(
-            R.anim.slide_in_right,
-            R.anim.slide_out_left
-        )  // for open*/
-    }
 
 
 

@@ -2,7 +2,6 @@ package com.assignment.wiproassignment.ui.news
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -14,7 +13,9 @@ import com.assignment.wiproassignment.ui.news.adapter.NewsListAdapter
 import com.assignment.wiproassignment.utill.Utility.isNetworkAvailable
 import com.assignment.wiproassignment.utill.showToast
 import com.assignment.wiproassignment.widget.loader.UtilLoader
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.toolbar.view.*
+
 
 class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
 
@@ -24,13 +25,16 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
     private lateinit var mUtilLoader: UtilLoader
     private var previousSelected = -1
     private var onClick = false
-    var swipeCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = NewsViewModel()
-        binding.viewModel = viewModel
+
+        viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java!!)
+        binding.viewModel=viewModel
+
+       /* viewModel = NewsViewModel()
+        binding.viewModel = viewModel*/
         init()
         attachObserver()
         callAPI()
@@ -38,10 +42,7 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
 
-            swipeCount += 1;
-            if (swipeCount > 0) {
-                callAPI()
-            }
+            callAPI()
             adapter.notifyDataSetChanged()
 
             binding.swipeRefreshLayout.isRefreshing = false
@@ -64,9 +65,9 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
      */
     private fun callAPI() {
         if (isNetworkAvailable(this@MainActivity)) {
-            viewModel.callNewsListApi(
-                this@MainActivity
-            )
+            viewModel.getUsers()
+
+
         } else {
             noNewsFound()
             showToast(this@MainActivity, getString(R.string.no_internet),Toast.LENGTH_SHORT)
@@ -86,6 +87,9 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
      * attach observer for api calls
      */
     private fun attachObserver() {
+
+
+
         viewModel.isLoading.observe(this, androidx.lifecycle.Observer<Boolean> {
             it?.let {
                 showLoadingDialog(it)
@@ -101,10 +105,10 @@ class MainActivity : AppCompatActivity(),NewsListAdapter.ItemClickListener {
             it?.let {
                 if (it is NewsListResponse) {
                     try {
-                        
-                           
-                                when {
-                                    it.rows == null -> noNewsFound()
+                          when {
+                                    it.rows==null -> {
+                                        noNewsFound()
+                                    }
                                     it.rows!!.size > 0 -> {
                                         binding.tvRecordFound.visibility = View.GONE
                                         binding.rvNews.visibility = View.VISIBLE

@@ -13,8 +13,6 @@ import com.assignment.wiproassignment.model.newlist.NewsListResponse
 import com.assignment.wiproassignment.utill.showImage
 
 
-
-
 /**
  * Created by Aparna S
  */
@@ -53,13 +51,21 @@ class NewsListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         try {
             val data = allList?.get(position)!!
+
+            data.title?.let {
+                holder.tvTitle.visibility=View.VISIBLE
+                holder.tvTitle.text = data.title
+            }
+            data.description?.let {
+                holder.tvDesc.visibility=View.VISIBLE
+                holder.tvDesc.text = data.description
+            }
             if (!data.imageHref.isNullOrEmpty()) {
+                holder.ivThumbnail.visibility=View.VISIBLE
                 showImage(holder.ivThumbnail, data.imageHref!!, R.drawable.border)
             } else {
                 holder.ivThumbnail.setImageResource(R.drawable.border)
             }
-            holder.tvTitle.text = data.title
-            holder.tvDesc.text = data.description
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -72,7 +78,7 @@ class NewsListAdapter(
         val tvTitle: TextView = view.findViewById(R.id.tvHeading)
         val tvDesc: TextView = view.findViewById(R.id.tvDesc)
 
-        var mIsInTheMiddle=false
+        var mIsInTheMiddle = false
 
         fun getIsInTheMiddle(): Boolean {
             return mIsInTheMiddle
@@ -82,12 +88,6 @@ class NewsListAdapter(
     interface ItemClickListener {
         fun onItemClick(data: NewsListResponse.Row, position: Int)
 
-    }
-
-
-    fun updateUI(position: Int, colorCode: String) {
-        selectedPosition = position
-        notifyItemChanged(position)
     }
 
 

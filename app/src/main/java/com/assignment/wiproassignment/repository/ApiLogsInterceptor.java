@@ -9,7 +9,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
-import timber.log.Timber;
 
 /**
  * Created by Aparna S
@@ -22,7 +21,6 @@ public class ApiLogsInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         long t1 = System.nanoTime();
-        Timber.i("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers());
         Log.v("Headers" ,""+request.headers());
 
         Log.v("Request_Parameters" ,""+bodyToString(request));

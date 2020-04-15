@@ -2,7 +2,10 @@ package com.assignment.wiproassignment
 
 import android.app.Application
 import android.content.Context
-
+import com.assignment.listapplication.network.di.APIComponent
+import com.assignment.listapplication.network.di.APIModule
+import com.assignment.listapplication.network.di.DaggerAPIComponent
+import com.assignment.wiproassignment.repository.APIURL
 
 
 /**
@@ -14,18 +17,28 @@ import android.content.Context
 class MyApplication : Application() {
 
 
+    companion object {
+        var ctx: Context? = null
+        lateinit var apiComponent: APIComponent
+    }
     override fun onCreate() {
         super.onCreate()
+        ctx = applicationContext
+        //apiComponent = initDaggerComponent()
 
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
+    fun getMyComponent(): APIComponent {
+        return apiComponent
     }
 
+    fun initDaggerComponent(): APIComponent {
+        apiComponent =   DaggerAPIComponent
+            .builder()
+            .aPIModule(APIModule(APIURL.BASE_URL))
+            .build()
+        return  apiComponent
 
-    override fun onTerminate() {
-        super.onTerminate()
     }
 
 }
