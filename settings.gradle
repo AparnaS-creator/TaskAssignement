@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='WiproAssignment'
+rootProject.name='TaskAssignment'

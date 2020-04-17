@@ -11,6 +11,7 @@
 
 
 
+
     <style name="TransparentProgressDialog" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
